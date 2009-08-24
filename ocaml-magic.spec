@@ -5,7 +5,7 @@ Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
 URL:            http://sourceforge.net/projects/ocaml-magic/
-Source0:        http://sourceforge.net/projects/ocaml-magic/files/ocaml-magic-0.7.3.tar.gz
+Source0:        http://sourceforge.net/projects/ocaml-magic/files/ocaml-magic-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  libmagic-devel
 BuildRequires:  ocaml-findlib
