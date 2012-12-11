@@ -1,14 +1,14 @@
 Name:           ocaml-magic
 Version:        0.7.3
-Release:        %mkrel 1
+Release:        2
 Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
 URL:            http://sourceforge.net/projects/ocaml-magic/
 Source0:        http://sourceforge.net/projects/ocaml-magic/files/ocaml-magic-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  libmagic-devel
+BuildRequires:  magic-devel
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml
 
 %description
 Libmagic is a library for classifying files according to magic number tests.
@@ -59,4 +59,16 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/magic/*.cmxa
 %{_libdir}/ocaml/magic/*.cmx
 %{_libdir}/ocaml/magic/*.mli
+
+
+
+%changelog
+* Mon Aug 24 2009 Florent Monnier <blue_prawn@mandriva.org> 0.7.3-1mdv2010.1
++ Revision: 420284
+- version var in source url
+
+* Thu Jul 30 2009 Florent Monnier <blue_prawn@mandriva.org> 0.7.3-1mdv2010.0
++ Revision: 404486
+- import ocaml-magic
+
 
