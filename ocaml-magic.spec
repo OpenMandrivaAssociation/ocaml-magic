@@ -1,6 +1,6 @@
 Name:           ocaml-magic
 Version:        0.7.3
-Release:        2
+Release:        3
 Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
