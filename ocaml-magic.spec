@@ -6,6 +6,11 @@ License:        LGPL
 Group:          Development/Other
 URL:            https://sourceforge.net/projects/ocaml-magic/
 Source0:        http://sourceforge.net/projects/ocaml-magic/files/ocaml-magic-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  magic-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml
