@@ -1,6 +1,6 @@
 Name:           ocaml-magic
 Version:        0.7.3
-Release:	8
+Release:	9
 Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
@@ -30,19 +30,22 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n ocaml-magic-%{version}
-# OCaml 5 C API renames
-sed -i \
-	-e 's/alloc_custom/caml_alloc_custom/g' \
-	-e 's/raise_out_of_memory/caml_raise_out_of_memory/g' \
-	-e 's/copy_string/caml_copy_string/g' \
-	-e 's/invalid_argument/caml_invalid_argument/g' \
-	-e 's/raise_sys_error/caml_raise_sys_error/g' \
-	src/magic_stubs.c
-grep -q 'caml/alloc.h' src/magic_stubs.c || sed -i 's|#include <caml/mlvalues.h>|#include <caml/mlvalues.h>
-#include <caml/alloc.h>
-#include <caml/memory.h>
-#include <caml/fail.h>
-#include <caml/custom.h>|' src/magic_stubs.c
+# OCaml 5 C API renames (avoid double caml_ prefix)
+perl -i -pe '
+  for my $s (qw(
+    raise_with_string raise_with_arg raise_out_of_memory raise_sys_error
+    invalid_argument copy_string alloc_custom alloc_string string_length
+    failwith alloc_small raise_constant raise_end_of_file
+  )) {
+    s/(?<![A-Za-z0-9_])$s\s*\(/caml_$s(/g;
+  }
+  s/caml_caml_/caml_/g;
+  
+if (!/caml\/fail\.h/) {
+  s|#include <caml/mlvalues.h>|#include <caml/mlvalues.h>\n#include <caml/alloc.h>\n#include <caml/memory.h>\n#include <caml/fail.h>\n#include <caml/custom.h>|;
+}
+
+' src/magic_stubs.c
 
 
 %build
