@@ -1,6 +1,6 @@
 Name:           ocaml-magic
 Version:        0.7.3
-Release:	7
+Release:	8
 Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
@@ -37,12 +37,13 @@ sed -i \
 	-e 's/copy_string/caml_copy_string/g' \
 	-e 's/invalid_argument/caml_invalid_argument/g' \
 	-e 's/raise_sys_error/caml_raise_sys_error/g' \
-	magic_stubs.c
-grep -q 'caml/alloc.h' magic_stubs.c || sed -i 's|#include <caml/mlvalues.h>|#include <caml/mlvalues.h>
+	src/magic_stubs.c
+grep -q 'caml/alloc.h' src/magic_stubs.c || sed -i 's|#include <caml/mlvalues.h>|#include <caml/mlvalues.h>
 #include <caml/alloc.h>
 #include <caml/memory.h>
 #include <caml/fail.h>
-#include <caml/custom.h>|' magic_stubs.c
+#include <caml/custom.h>|' src/magic_stubs.c
+
 
 %build
 %configure
