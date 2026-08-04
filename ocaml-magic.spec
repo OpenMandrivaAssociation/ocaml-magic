@@ -1,6 +1,6 @@
 Name:           ocaml-magic
 Version:        0.7.3
-Release:	5
+Release:	6
 Summary:        OCaml bindings for the File type determination library
 License:        LGPL
 Group:          Development/Other
@@ -30,6 +30,14 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n ocaml-magic-%{version}
+# OCaml 5 C API
+sed -i -e "s/\balloc_custom\b/caml_alloc_custom/g" 
+       -e "s/\braise_out_of_memory\b/caml_raise_out_of_memory/g" 
+       -e "s/\bcopy_string\b/caml_copy_string/g" 
+       -e "s/\binvalid_argument\b/caml_invalid_argument/g" 
+       -e "s/\braise_sys_error\b/caml_raise_sys_error/g" 
+       -e "s/#include <caml\/mlvalues.h>/#include <caml\/mlvalues.h>\n#include <caml\/alloc.h>\n#include <caml\/memory.h>\n#include <caml\/fail.h>\n#include <caml\/custom.h>/" 
+       magic_stubs.c
 
 %build
 %configure
